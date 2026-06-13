@@ -1,3 +1,4 @@
+
 import random
 import os
 import time
@@ -208,3 +209,6 @@ def jogar_tetris():
 
 if __name__ == "__main__":
     jogar_tetris()
+
+
+
