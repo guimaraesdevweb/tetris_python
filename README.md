@@ -14,6 +14,19 @@ Diferente da maioria das abordagens que misturam a parte visual com as regras do
 
 ---
 
+---
+
+## ⚠️ Compatibilidade e Requisitos
+
+Atenção: Este projeto utiliza as bibliotecas termios, tty e select para capturar entradas do teclado de forma não-bloqueante (em tempo real).
+
+   Sistema Operacional: Funciona exclusivamente em ambientes Unix (Linux e macOS).
+
+   Ambiente Windows: Não é compatível nativamente (a execução no Windows resultará em erro ao tentar importar os módulos de sistema).
+
+   Python: Versão 3.x recomendada.
+---
+
 ## 🛠️ Tecnologias e Recursos Utilizados
 
 * **Linguagem:** Python 3
