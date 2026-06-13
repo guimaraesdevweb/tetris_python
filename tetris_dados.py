@@ -114,7 +114,7 @@ def jogar_tetris():
     pontuacao = 0
     jogo_rodando = True
     ultima_queda = time.time()
-    velocidade_queda = 0.6 
+    velocidade_queda = 0.5 
 
     # Limpa a tela uma única vez antes de entrar no loop
     os.system('clear')
@@ -133,18 +133,26 @@ def jogar_tetris():
         tela_buffer += " +--------------------+\r\n" 
         
         for i, linha in enumerate(tabuleiro_exibicao):
-            linha_visual = "".join(["[]" if bloco == 1 else " ." for bloco in linha])
+            linha_visual = "".join(["[]" if bloco == 1 else "  " for bloco in linha])
             print_linha = f" |{linha_visual}|"
             
             # PAINEL LATERAL
             if i == 1:
-                print_linha += f"   PONTUAÇÃO: {pontuacao}"
+                print_linha += f"   Por: Rafael Guimarães"
             elif i == 3:
-                print_linha += f"   PRÓXIMA PEÇA: ({proxima_peca_nome})"
-            elif 4 <= i < 4 + len(proxima_peca):
-                linha_prox = proxima_peca[i - 4]
-                desenho_bruto = "".join(["[]" if b == 1 else "  " for b in linha_prox])
+                print_linha += f"   TETRIS RAIZ NO TEMINAL"
+            elif i == 4:
+                print_linha += f"   Abordagem Orientada a Dados"
+            elif i == 6:
+                print_linha += f"  ------------+++++++------------"
                 
+            elif i == 9:
+                print_linha += f"   PONTUAÇÃO: {pontuacao}"
+            elif i == 10:
+                print_linha += f"   PRÓXIMA PEÇA: ({proxima_peca_nome})"
+            elif 11 <= i < 11 + len(proxima_peca):
+                linha_prox = proxima_peca[i - 11]
+                desenho_bruto = "".join(["[]" if b == 1 else "  " for b in linha_prox])
                 # Preenchimento dinâmico estabilizado
                 espacos_faltando = 4 - len(linha_prox)
                 preenchimento = "  " * espacos_faltando
@@ -179,7 +187,7 @@ def jogar_tetris():
             if not checar_colisao(tabuleiro, peca_atual, linha_atual + 1, coluna_atual):
                 linha_atual += 1
 
-        # 3. ATUALIZAÇÃO E GRAVIDADE
+        # 3. GRAVIDADE
         agora = time.time()
         if agora - ultima_queda > velocidade_queda:
             if not checar_colisao(tabuleiro, peca_atual, linha_atual + 1, coluna_atual):
@@ -188,7 +196,7 @@ def jogar_tetris():
                 fixar_pecas(tabuleiro, peca_atual, linha_atual, coluna_atual)
                 
                 linhas_limpas = limpar_linhas(tabuleiro)
-                pontuacao += linhas_limpas * 100
+                pontuacao += linhas_limpas * 10
                 
                 peca_atual_nome = proxima_peca_nome
                 peca_atual = PEÇAS[peca_atual_nome]
