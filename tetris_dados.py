@@ -1,4 +1,3 @@
-
 import random
 import os
 import time
@@ -114,13 +113,16 @@ def jogar_tetris():
     pontuacao = 0
     jogo_rodando = True
     ultima_queda = time.time()
-    velocidade_queda = 0.5 
+    velocidade_queda = 0.6 
+    print("Pressione 'Enter' para iniciar o jogo...")
+    input()  # Aguarda o usuário pressionar Enter para começar
 
     # Limpa a tela uma única vez antes de entrar no loop
     os.system('clear')
 
     while jogo_rodando:
         # 1. RENDERIZAÇÃO
+        
         tabuleiro_exibicao = [linha[:] for linha in tabuleiro]
         fixar_pecas(tabuleiro_exibicao, peca_atual, linha_atual, coluna_atual)
         
@@ -138,21 +140,23 @@ def jogar_tetris():
             
             # PAINEL LATERAL
             if i == 1:
-                print_linha += f"   Por: Rafael Guimarães"
-            elif i == 3:
-                print_linha += f"   TETRIS RAIZ NO TEMINAL"
-            elif i == 4:
-                print_linha += f"   Abordagem Orientada a Dados"
+                print_linha += f"   Desenvolvido por: Rafael Guimarães"
+            elif i == 2:
+                print_linha += f"   Versão: 1.2.2"
+            
+            elif i == 5:
+                print_linha += f"   --- INFORMAÇÕES ---"
+            
             elif i == 6:
-                print_linha += f"  ------------+++++++------------"
-                
-            elif i == 9:
+                print_linha += f"   TETRIS CLÁSSICO EM TERMINAL"
+            elif i == 7:
                 print_linha += f"   PONTUAÇÃO: {pontuacao}"
             elif i == 10:
                 print_linha += f"   PRÓXIMA PEÇA: ({proxima_peca_nome})"
-            elif 11 <= i < 11 + len(proxima_peca):
-                linha_prox = proxima_peca[i - 11]
+            elif 12 <= i < 12 + len(proxima_peca):
+                linha_prox = proxima_peca[i - 12]
                 desenho_bruto = "".join(["[]" if b == 1 else "  " for b in linha_prox])
+                
                 # Preenchimento dinâmico estabilizado
                 espacos_faltando = 4 - len(linha_prox)
                 preenchimento = "  " * espacos_faltando
@@ -187,7 +191,7 @@ def jogar_tetris():
             if not checar_colisao(tabuleiro, peca_atual, linha_atual + 1, coluna_atual):
                 linha_atual += 1
 
-        # 3. GRAVIDADE
+        # 3. ATUALIZAÇÃO E GRAVIDADE
         agora = time.time()
         if agora - ultima_queda > velocidade_queda:
             if not checar_colisao(tabuleiro, peca_atual, linha_atual + 1, coluna_atual):
@@ -196,7 +200,7 @@ def jogar_tetris():
                 fixar_pecas(tabuleiro, peca_atual, linha_atual, coluna_atual)
                 
                 linhas_limpas = limpar_linhas(tabuleiro)
-                pontuacao += linhas_limpas * 10
+                pontuacao += linhas_limpas * 100
                 
                 peca_atual_nome = proxima_peca_nome
                 peca_atual = PEÇAS[peca_atual_nome]
@@ -217,6 +221,3 @@ def jogar_tetris():
 
 if __name__ == "__main__":
     jogar_tetris()
-
-
-
